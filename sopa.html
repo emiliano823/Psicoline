@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sopa de Letras</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+        }
+
+        table {
+            border-radius: 1rem;
+
+            margin-top: 20px;
+            background-color: whitesmoke;
+        }
+
+        td {
+            width: 30px;
+            height: 30px;
+            text-align: center;
+
+            border-radius: 1rem;
+            cursor: pointer;
+            user-select: none;
+            font-weight: bold;
+            transition: all 0.1s ease;
+        }
+
+        td.selected {
+            background-color: yellow;
+            border-radius: 0%;
+            transition: all 0.1s ease;
+        }
+
+        td:hover{
+            background-color: gray;
+
+        }
+
+        h1,
+        p {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <table id="grid"></table>
+
+    <script>
+        const palabras =
+            ["RENACIMIENTO", "HIPPOCRATES", "FREUD", "GESTALT", "SENSUALISMO", "PSICOANALISIS", "PLATON", "DESCARTES"];
+        const size = 15;
+
+        // Crear cuadrícula vacía 
+        let grid = Array.from({ length: size }, () => Array(size).fill(''));
+
+        // Función para colocar palabra en dirección aleatoria 
+        function colocarPalabra(palabra) {
+            const directions = [
+                [0, 1],  // horizontal 
+                [1, 0],  // vertical 
+                [1, 1],  // diagonal 
+                [0, -1], // horizontal inversa 
+                [-1, 0], // vertical inversa 
+                [-1, -1],// diagonal inversa 
+                [1, -1], // diagonal hacia abajo izquierda 
+                [-1, 1]  // diagonal hacia arriba derecha 
+            ];
+            let placed = false;
+            while (!placed) {
+                const dir = directions[Math.floor(Math.random() * directions.length)];
+                const row = Math.floor(Math.random() * size);
+                const col = Math.floor(Math.random() * size);
+                let canPlace = true;
+                for (let i = 0; i < palabra.length; i++) {
+                    const r = row + dir[0] * i;
+                    const c = col + dir[1] * i;
+                    if (r < 0 || r >= size || c < 0 || c >= size || (grid[r][c] && grid[r][c] !== palabra[i])) {
+                        canPlace = false; break;
+                    }
+                }
+                if (canPlace) {
+                    for (let i = 0; i < palabra.length; i++) {
+                        const r = row + dir[0] * i;
+                        const c = col + dir[1] * i;
+                        grid[r][c] = palabra[i];
+                    }
+                    placed = true;
+                }
+            }
+        }
+
+        // Colocar todas las palabras 
+        palabras.forEach(colocarPalabra);
+
+        // Llenar espacios vacíos con letras aleatorias 
+        for (let i = 0; i < size; i++)
+            for (let j = 0; j < size; j++)
+                if (grid[i][j] === '') grid[i][j] = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+
+        // Mostrar tabla 
+        const table = document.getElementById('grid');
+        for (let i = 0; i < size; i++) {
+            const tr = document.createElement('tr');
+            for (let j = 0; j < size; j++) {
+                const td = document.createElement('td');
+                td.textContent = grid[i][j];
+                td.addEventListener('click', () => td.classList.toggle('selected'));
+                tr.appendChild(td);
+            }
+            table.appendChild(tr);
+        } 
+    </script>
+</body>
+
+</html>

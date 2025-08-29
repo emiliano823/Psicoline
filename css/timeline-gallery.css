@@ -1,0 +1,155 @@
+.gallery-timeline {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 80dvh;
+    padding: 50px 0;
+    overflow: visible;
+    position: relative;
+}
+
+.event-gallery {
+    position: absolute;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5vh;
+    justify-content: center;
+    background-color: var(--bg-color);
+    padding: 3rem;
+    width: 80%;
+    min-height: 70dvh;
+    max-height: 80dvh;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.5s ease-in-out;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(45deg, var(--bg-color), var(--bg-color-2));
+    box-shadow: 19px -19px 38px var(--bg-color-2),
+        -19px 19px 38px var(--card-color);
+    overflow: hidden;
+}
+
+.gallery-active {
+    opacity: 1;
+    transform: translateX(-50%);
+}
+
+.event-gallery h2 {
+    font-size: 30px;
+    font-weight: bold;
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+/* Estilo para el contenedor que agrupa p e img */
+.grid-gallery {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+    max-width: 100%;
+}
+
+.gal-dat-izq img{
+    flex: 1;
+    order: 2;
+}
+
+.gal-dat-izq p{
+    flex-shrink: 0;
+    order: 1;
+}
+
+/* Estilo para los párrafos en la galería */
+.event-gallery p {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--text-color);
+    margin: 0;
+    flex: 1;
+    order: 2;
+    /* El párrafo va después de la imagen */
+}
+
+/* Estilo para las imágenes en la galería */
+.event-gallery img {
+    width: 35dvh;
+    height: 35dvh;
+    object-fit: cover;
+    border-radius: 15px;
+    margin: 0;
+    flex-shrink: 0;
+    order: 1;
+    /* La imagen va primero */
+}
+
+
+
+.gallery-buttons {
+    display: flex;
+    background-color: none;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    z-index: 2;
+}
+
+.gallery-btn {
+    width: 200px;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 5vh;
+    transition: all 0.3s ease;
+}
+
+.gallery-btn:hover {
+    transform: translateY(-5px);
+    background-color: rgb(255, 0, 183);
+    border-radius: 2rem;
+    transition: all 0.3s ease;
+}
+
+.gallery-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.gallery-btn:disabled:hover {
+    background-color: transparent;
+    transform: none;
+}
+
+/* Indicadores del carrusel */
+.gallery-indicators {
+    background-color: none;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+.gallery-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--text-color);
+    opacity: 0.3;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.gallery-indicator.active {
+    opacity: 1;
+    background-color: rgb(255, 0, 183);
+}
+
+.gallery-indicator:hover {
+    opacity: 0.7;
+}
